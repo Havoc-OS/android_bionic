@@ -737,6 +737,7 @@ void parse_LD_SHIM_LIBS(const char* path) {
 std::vector<const ShimDescriptor*> shim_matching_pairs(const char* path) {
   std::vector<const ShimDescriptor*> matched_pairs;
 
+  matched_pairs.clear();
   g_active_shim_libs.for_each([&](const ShimDescriptor* a_pair) {
     if (a_pair->first == path) {
       matched_pairs.push_back(a_pair);
