@@ -1170,6 +1170,10 @@ const char* fix_dt_needed(const char* dt_needed, const char* sopath __unused) {
 
 template<typename F>
 static void for_each_dt_needed(const ElfReader& elf_reader, F action) {
+#ifdef LD_SHIM_LIBS
+  for_each_matching_shim(get_executable_path(), action);
+  for_each_matching_shim(elf_reader.name(), action);
+#endif
   for (const ElfW(Dyn)* d = elf_reader.dynamic(); d->d_tag != DT_NULL; ++d) {
     if (d->d_tag == DT_NEEDED) {
       action(fix_dt_needed(elf_reader.get_string(d->d_un.d_val), elf_reader.name()));
