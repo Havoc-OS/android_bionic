@@ -109,9 +109,8 @@ soinfo* get_libdl_info(const char* linker_path, const link_map& linker_map);
 soinfo* find_containing_library(const void* p);
 
 #ifdef LD_SHIM_LIBS
-typedef std::pair<std::string, std::string> ShimDescriptor;
 void parse_LD_SHIM_LIBS(const char* path);
-std::vector<const ShimDescriptor*> shim_matching_pairs(const char* path);
+#endif
 
 template<typename F>
 void for_each_matching_shim(const char* path, F action) {

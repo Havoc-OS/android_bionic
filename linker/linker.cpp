@@ -701,6 +701,11 @@ enum walk_action_result_t : uint32_t {
 };
 
 #ifdef LD_SHIM_LIBS
+static soinfo* find_library(android_namespace_t* ns,
+                           const char* name, int rtld_flags,
+                           const android_dlextinfo* extinfo,
+                           soinfo* needed_by);
+
 // g_ld_all_shim_libs maintains the references to memory as it used
 // in the soinfo structures and in the g_active_shim_libs list.
 static std::vector<ShimDescriptor> g_ld_all_shim_libs;
@@ -1171,7 +1176,6 @@ const char* fix_dt_needed(const char* dt_needed, const char* sopath __unused) {
 template<typename F>
 static void for_each_dt_needed(const ElfReader& elf_reader, F action) {
 #ifdef LD_SHIM_LIBS
-  for_each_matching_shim(get_executable_path(), action);
   for_each_matching_shim(elf_reader.name(), action);
 #endif
   for (const ElfW(Dyn)* d = elf_reader.dynamic(); d->d_tag != DT_NULL; ++d) {
