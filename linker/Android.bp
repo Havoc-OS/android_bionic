@@ -105,7 +105,7 @@ cc_binary {
         debuggable: {
             cppflags: ["-DUSE_LD_CONFIG_FILE"],
         },
-        lineage: {
+        havoc: {
             needs_text_relocations: {
                 cppflags: ["-DTARGET_NEEDS_PLATFORM_TEXT_RELOCATIONS"],
             },
